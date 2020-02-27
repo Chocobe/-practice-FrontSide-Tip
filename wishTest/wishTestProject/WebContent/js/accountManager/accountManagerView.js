@@ -43,6 +43,8 @@ $(function() {
 					return;
 				}
 				
+				alert(parsedJSON.length);
+				
 				for(let i = 0; i < parsedJSON.length; i++) {
 					const tr = $("<tr>").attr({
 						"class": "searchCustomData",
@@ -57,7 +59,7 @@ $(function() {
 					
 					$(tr).dblclick(function() {
 						alert("idxValue : " + $(idxValue).val());
-						viewTotalData();
+						viewTotalData($(this).children(".idxValue").val());
 					});
 					
 					$(tr).append(newBusiNum);
@@ -78,68 +80,68 @@ $(function() {
 	}
 	
 	
-	function viewTotalData() {
+	function viewTotalData(idx) {
 		/* CUSTOM 데이터 */
-		$(".voBusiNum").val(parsedJSON.customVO.voBusiNum);
-		$(".voBusiNumOrigin").val(parsedJSON.customVO.voBusiNum);
-		$(".voCustom").val(parsedJSON.customVO.voCustom);
-		$(".voShort").val(parsedJSON.customVO.voShort);
+		$(".voBusiNum").val(parsedJSON[idx].customVO.voBusiNum);
+		$(".voBusiNumOrigin").val(parsedJSON[idx].customVO.voBusiNum);
+		$(".voCustom").val(parsedJSON[idx].customVO.voCustom);
+		$(".voShort").val(parsedJSON[idx].customVO.voShort);
 		
-		$(".voCEO").val(parsedJSON.customVO.voCEO);
-		$(".voChargePerson").val(parsedJSON.customVO.voChargePerson);
-		$(".voBusiCondition").val(parsedJSON.customVO.voBusiCondition);
-		$(".voItem").val(parsedJSON.customVO.voItem);
-		$(".voPostNum").val(parsedJSON.customVO.voPostNum);
+		$(".voCEO").val(parsedJSON[idx].customVO.voCEO);
+		$(".voChargePerson").val(parsedJSON[idx].customVO.voChargePerson);
+		$(".voBusiCondition").val(parsedJSON[idx].customVO.voBusiCondition);
+		$(".voItem").val(parsedJSON[idx].customVO.voItem);
+		$(".voPostNum").val(parsedJSON[idx].customVO.voPostNum);
 		
-		$(".voAddr1").val(parsedJSON.customVO.voAddr1);
-		$(".voAddr2").val(parsedJSON.customVO.voAddr2); // jj
+		$(".voAddr1").val(parsedJSON[idx].customVO.voAddr1);
+		$(".voAddr2").val(parsedJSON[idx].customVO.voAddr2); // jj
 		
-		$(".voTEL").val(parsedJSON.customVO.voTEL);
-		$(".voFAX").val(parsedJSON.customVO.voFAX);
-		$(".voHomePage").val(parsedJSON.customVO.voHomePage);
+		$(".voTEL").val(parsedJSON[idx].customVO.voTEL);
+		$(".voFAX").val(parsedJSON[idx].customVO.voFAX);
+		$(".voHomePage").val(parsedJSON[idx].customVO.voHomePage);
 		
 		
-		const voCoYN = parsedJSON.customVO.voCoYN;
+		const voCoYN = parsedJSON[idx].customVO.voCoYN;
 		if(voCoYN == "N") {
 			$(".voCoYN_N").prop("checked", true);
 		}
 		
-		const voForeignYN = parsedJSON.customVO.voForeignYN;
+		const voForeignYN = parsedJSON[idx].customVO.voForeignYN;
 		if(voForeignYN == "Y") {
 			$(".voForeignYN_Y").prop("checked", true);
 		}
 		
-		const voTaxYN = parsedJSON.customVO.voTaxYN;
+		const voTaxYN = parsedJSON[idx].customVO.voTaxYN;
 		if(voTaxYN == "N") {
 			$(".voTaxYN").val("N");
 		}
 		
-		$(".voCountryENG").val(parsedJSON.customVO.voCountryENG);
-		$(".voCountryKOR").val(parsedJSON.customVO.voCountryKOR);
+		$(".voCountryENG").val(parsedJSON[idx].customVO.voCountryENG);
+		$(".voCountryKOR").val(parsedJSON[idx].customVO.voCountryKOR);
 		
-		const voSpecialRelation = parsedJSON.customVO.voSpecialRelation;
+		const voSpecialRelation = parsedJSON[idx].customVO.voSpecialRelation;
 		if(voSpecialRelation == "Y") {
 			$(".voSpecialRelation").prop("checked", true);
 		}
 		
-		const voTradeStop = parsedJSON.customVO.voTradeStop;
+		const voTradeStop = parsedJSON[idx].customVO.voTradeStop;
 		if(voTradeStop == "Y") {
 			$(".voTradeStop").prop("checked", true);
 		}
 		
-		$(".voContractPeriod_S").val(parsedJSON.customVO.voContractPeriod_S_String);
-		$(".voContractPeriod_E").val(parsedJSON.customVO.voContractPeriod_E_String);
+		$(".voContractPeriod_S").val(parsedJSON[idx].customVO.voContractPeriod_S_String);
+		$(".voContractPeriod_E").val(parsedJSON[idx].customVO.voContractPeriod_E_String);
 		
-		$(".voRegiInfoMan").val(parsedJSON.customVO.voRegiInfoMan);
-		$(".voRegiInfoDate").val(parsedJSON.customVO.voRegiInfoDate_String);
+		$(".voRegiInfoMan").val(parsedJSON[idx].customVO.voRegiInfoMan);
+		$(".voRegiInfoDate").val(parsedJSON[idx].customVO.voRegiInfoDate_String);
 		
-		$(".voModiInfoMan").val(parsedJSON.customVO.voModiInfoMan);
-		$(".voModiInfoDate").val(parsedJSON.customVO.voModiInfoDate_String);
+		$(".voModiInfoMan").val(parsedJSON[idx].customVO.voModiInfoMan);
+		$(".voModiInfoDate").val(parsedJSON[idx].customVO.voModiInfoDate_String);
 		
 		/* ACCOUNT 데이터 */
-		$(".voFactory").val(parsedJSON.accountVO.voFactory);
-		$(".voTradeBank").val(parsedJSON.accountVO.voTradeBank);
-		$(".voAccountNum").val(parsedJSON.accountVO.voAccountNum);
+		$(".voFactory").val(parsedJSON[idx].accountVO.voFactory);
+		$(".voTradeBank").val(parsedJSON[idx].accountVO.voTradeBank);
+		$(".voAccountNum").val(parsedJSON[idx].accountVO.voAccountNum);
 	}
 	
 	

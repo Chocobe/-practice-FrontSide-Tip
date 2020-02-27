@@ -33,27 +33,11 @@ public class AccountManagerDao {
 		List<AccountManagerVO> accountManagerList = new ArrayList<AccountManagerVO>();
 		
 		try {
-			String sql = "SELECT * FROM custom JOIN account ";
-			sql += "ON custom.BUSI_NUM = account.BUSI_NUM ";
-			sql += "WHERE custom.BUSI_NUM LIKE ? "; 
-			sql += "OR custom.CUSTOM LIKE ?";
-			
 			conn = dataSource.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, "%" + voBusiNum + "%");
-			pstmt.setString(2, "%" + voCustom + "%");
-			
-			if(voBusiNum == null) {
-				pstmt.setString(1, "");
-			}
-			
-			if(voCustom == null) {
-				pstmt.setString(2, "");
-			}
+			pstmt = createSelectPstmt(conn, voBusiNum, voCustom);
 			
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				// customVO
 				CustomVO customVO = new CustomVO();
 				
@@ -120,6 +104,37 @@ public class AccountManagerDao {
 		}
 		
 		return accountManagerList;
+	}
+	
+	private PreparedStatement createSelectPstmt(Connection conn, String voBusiNum, String voCustom) throws SQLException {
+		PreparedStatement pstmt = null;
+		
+		String sql = "";
+		sql += "SELECT * FROM custom JOIN account ";
+		sql += "ON custom.BUSI_NUM = account.BUSI_NUM ";
+		
+		if(voBusiNum.length() > 0 && voCustom.length() > 0) {
+			sql += "WHERE custom.BUSI_NUM LIKE ? "; 
+			sql += "OR custom.CUSTOM LIKE ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + voBusiNum + "%");
+			pstmt.setString(2, "%" + voCustom + "%");
+			
+		} else if(voBusiNum.length() > 0 || voCustom.length() == 0) {
+			sql += "WHERE custom.BUSI_NUM LIKE ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + voBusiNum + "%");
+			
+		} else if(voBusiNum.length() == 0 || voCustom.length() > 0) {
+			sql += "WHERE custom.CUSTOM LIKE ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + voCustom + "%");
+		}
+		
+		return pstmt;
 	}
 	
 	

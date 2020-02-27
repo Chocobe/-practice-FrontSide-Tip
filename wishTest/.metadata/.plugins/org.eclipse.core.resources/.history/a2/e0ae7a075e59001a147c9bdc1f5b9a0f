@@ -1,0 +1,434 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import vo.AccountManagerVO;
+import vo.AccountVO;
+import vo.CustomVO;
+
+public class AccountManagerDao {
+	private DataSource dataSource;
+	
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+	
+	
+// CUSTOM & ACCOUNT 
+	// SELECT
+	public List<AccountManagerVO> selectData(String voBusiNum, String voCustom) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<AccountManagerVO> accountManagerList = new ArrayList<AccountManagerVO>();
+		
+		try {
+			conn = dataSource.getConnection();
+			pstmt = createSelectPstmt(conn, voBusiNum, voCustom);
+			
+			pstmt.setString(1, "%" + voBusiNum + "%");
+			pstmt.setString(2, "%" + voCustom + "%");
+			
+			if(voBusiNum == null) {
+				pstmt.setString(1, "");
+			}
+			
+			if(voCustom == null) {
+				pstmt.setString(2, "");
+			}
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				// customVO
+				CustomVO customVO = new CustomVO();
+				
+				customVO.setVoBusiNum(rs.getString("BUSI_NUM"));
+				customVO.setVoCustom(rs.getString("CUSTOM"));
+				customVO.setVoShort(rs.getString("SHORT"));
+				
+				customVO.setVoCEO(rs.getString("CEO"));
+				customVO.setVoChargePerson(rs.getString("CHARGE_PERSON"));
+				customVO.setVoBusiCondition(rs.getString("BUSI_CONDITION"));
+				customVO.setVoItem(rs.getString("ITEM"));
+				customVO.setVoPostNum(rs.getString("POST_NUM"));
+				
+				customVO.setVoAddr1(rs.getString("ADDR1"));
+				customVO.setVoAddr2(rs.getString("ADDR2"));
+				
+				customVO.setVoTEL(rs.getString("TEL"));
+				customVO.setVoFAX(rs.getString("FAX"));
+				customVO.setVoHomePage(rs.getString("HOMEPAGE"));
+				
+				customVO.setVoCoYN(rs.getString("CO_YN"));
+				customVO.setVoForeignYN(rs.getString("FOREIGN_YN"));
+				customVO.setVoTaxYN(rs.getString("TAX_YN"));
+
+				customVO.setVoCountryENG(rs.getString("COUNTRY_ENG"));
+				customVO.setVoCountryKOR(rs.getString("COUNTRY_KOR"));
+				
+				customVO.setVoSpecialRelation(rs.getString("SPECIAL_RELATION"));
+				customVO.setVoTradeStop(rs.getString("TRADE_STOP"));
+				
+				if(rs.getDate("CONTRACT_PERIOD_S") != null) {
+					customVO.setVoContractPeriod_S(rs.getDate("CONTRACT_PERIOD_S").toLocalDate());
+				}
+				
+				if(rs.getDate("CONTRACT_PERIOD_E") != null) {
+					customVO.setVoContractPeriod_E(rs.getDate("CONTRACT_PERIOD_E").toLocalDate());
+				}
+				
+				customVO.setVoRegiInfoMan(rs.getString("REGI_INFO_MAN"));
+				customVO.setVoRegiInfoDate(rs.getTimestamp("REGI_INFO_DATE"));
+				customVO.setVoModiInfoMan(rs.getString("MODI_INFO_MAN"));
+				customVO.setVoModiInfoDate(rs.getTimestamp("MODI_INFO_DATE"));
+				
+				
+				// accountVO
+				AccountVO accountVO = new AccountVO();
+				
+				accountVO.setVoBusiNum(rs.getString("BUSI_NUM"));
+				accountVO.setVoFactory(rs.getString("FACTORY"));
+				accountVO.setVoTradeBank(rs.getString("TRADE_BANK"));
+				accountVO.setVoAccountNum(rs.getString("ACCOUNT_NUM"));
+				
+				AccountManagerVO accountManagerVo = new AccountManagerVO(customVO, accountVO);
+				accountManagerList.add(accountManagerVo);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("<CustomDao - selectCustom() 에러> : " + e.getMessage());
+			
+		} finally {
+			if(rs != null) { try { rs.close(); } catch(SQLException e) {} }
+			if(pstmt != null) { try { pstmt.close(); } catch(SQLException e) {} }
+			if(conn != null) { try { conn.close(); } catch(SQLException e) {} }
+		}
+		
+		return accountManagerList;
+	}
+	
+	private PreparedStatement createSelectPstmt(Connection conn, String voBusiNum, String voCustom) throws SQLException {
+		PreparedStatement pstmt = null;
+		
+		String sql = "";
+		sql += "SELECT * FROM custom JOIN account ";
+		sql += "ON custom.BUSI_NUM = account.BUSI_NUM ";
+		
+		if(voBusiNum.length() > 0 && voCustom.length() > 0) {
+			sql += "WHERE custom.BUSI_NUM LIKE ? "; 
+			sql += "AND custom.CUSTOM LIKE ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, voBusiNum);
+			pstmt.setString(2, voCustom);
+			
+		} else if(voBusiNum.length() > 0 || voCustom.length() == 0) {
+			sql += "WHERE custom.BUSI_NUM LIKE ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+		} else if(voBusiNum.length() == 0 || voCustom.length() > 0) {
+			sql += "WHERE custom.CUSTOM LIKE ?";
+		}
+		
+		return pstmt;
+	}
+	
+	
+	// DELETE
+	public int deleteData(String voBusiNum) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			String sql = "DELETE FROM custom WHERE BUSI_NUM=?";
+			
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, voBusiNum);
+			
+			result = pstmt.executeUpdate();
+			
+			System.out.println("<DAO - 삭제 성공>");
+			
+		} catch(SQLException e) {
+			System.out.println("<AccountManagerDao - deleteData() 에러> : " + e.getMessage());
+			
+		} finally {
+			if(pstmt != null) { try { pstmt.close(); } catch(SQLException e) {} }
+			if(conn != null) { try { conn.close(); } catch(SQLException e) {} }
+		}
+		
+		return result;
+	}
+	
+	
+// CUSTOM
+	// INSERT CUSTOM
+	public int insertCustom(CustomVO customVO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			String sql = "INSERT INTO CUSTOM(BUSI_NUM, CUSTOM, SHORT, " +
+											"CEO, CHARGE_PERSON, BUSI_CONDITION, ITEM, POST_NUM, " +
+											"ADDR1, ADDR2, " +
+											
+											"TEL, FAX, HOMEPAGE, " +
+											"CO_YN, FOREIGN_YN, TAX_YN, " +
+											"COUNTRY_ENG, COUNTRY_KOR, " +
+											
+											"SPECIAL_RELATION, TRADE_STOP, " +
+											"CONTRACT_PERIOD_S, CONTRACT_PERIOD_E, " +
+											"REGI_INFO_MAN, REGI_INFO_DATE) ";
+											
+			sql += "VALUES(?, ?, ?, " +
+						  "?, ?, ?, ?, ?, " +
+						  "?, ?, " +
+						  
+						  "?, ?, ?, " +
+						  "?, ?, ?, " +
+						  "?, ?, " +
+						  
+						  "?, ?, " +
+						  "?, ?, " +
+						  "?, CURRENT_TIMESTAMP())";
+						  
+			
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, customVO.getVoBusiNum());
+			pstmt.setString(2, customVO.getVoCustom());
+			pstmt.setString(3, customVO.getVoShort());
+			
+			pstmt.setString(4, customVO.getVoCEO());
+			pstmt.setString(5, customVO.getVoChargePerson());
+			pstmt.setString(6, customVO.getVoBusiCondition());
+			pstmt.setString(7, customVO.getVoItem());
+			pstmt.setString(8, customVO.getVoPostNum());
+			
+			pstmt.setString(9, customVO.getVoAddr1());
+			pstmt.setString(10, customVO.getVoAddr2());
+			
+			
+			pstmt.setString(11, customVO.getVoTEL());
+			pstmt.setString(12, customVO.getVoFAX());
+			pstmt.setString(13, customVO.getVoHomePage());
+
+			pstmt.setString(14, customVO.getVoCoYN());
+			pstmt.setString(15, customVO.getVoForeignYN());
+			pstmt.setString(16, customVO.getVoTaxYN());
+			
+			pstmt.setString(17, customVO.getVoCountryENG());
+			pstmt.setString(18, customVO.getVoCountryKOR());
+			
+			
+			pstmt.setString(19, customVO.getVoSpecialRelation());
+			pstmt.setString(20, customVO.getVoTradeStop());
+			
+			pstmt.setDate(21, null);
+			if(customVO.getVoContractPeriod_S() != null) {
+				pstmt.setDate(21, Date.valueOf(customVO.getVoContractPeriod_S()));
+				
+			}
+			
+			pstmt.setDate(22, null);
+			if(customVO.getVoContractPeriod_E() != null) {
+				pstmt.setDate(22, Date.valueOf(customVO.getVoContractPeriod_E()));
+			}
+			
+			pstmt.setString(23, customVO.getVoRegiInfoMan());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			System.out.println("<CustomDao - insertCustom() 에러> : " + e.getMessage());
+			
+		} finally {
+			if(pstmt != null) { try { pstmt.close(); } catch(SQLException e) {} }
+			if(conn != null) { try { conn.close(); } catch(SQLException e) {} }			
+		}
+		
+		return result;
+	}
+	
+	
+	// UPDATE CUSTOM
+	public int updateCustom(String voBusiNumOrigin, CustomVO customVO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			String sql = "UPDATE CUSTOM SET ";
+			
+			sql += "BUSI_NUM=?, CUSTOM=?, SHORT=?, ";
+			sql += "CEO=?, CHARGE_PERSON=?, BUSI_CONDITION=?, ITEM=?, POST_NUM=?, ";
+			sql += "ADDR1=?, ADDR2=?, ";
+			
+			sql += "TEL=?, FAX=?, HOMEPAGE=?, ";
+			sql += "CO_YN=?, FOREIGN_YN=?, TAX_YN=?, ";
+			sql += "COUNTRY_ENG=?, COUNTRY_KOR=?, ";
+			
+			sql += "SPECIAL_RELATION=?, TRADE_STOP=?, ";
+			sql += "CONTRACT_PERIOD_S=?, CONTRACT_PERIOD_E=?, ";
+			sql += "REGI_INFO_MAN=?, ";
+			sql += "MODI_INFO_MAN=?, MODI_INFO_DATE = CURRENT_TIMESTAMP() ";
+			
+			sql += "WHERE BUSI_NUM=?";
+			
+			conn = this.dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, customVO.getVoBusiNum());
+			pstmt.setString(2, customVO.getVoCustom());
+			pstmt.setString(3, customVO.getVoShort());
+			
+			pstmt.setString(4, customVO.getVoCEO());
+			pstmt.setString(5, customVO.getVoChargePerson());
+			pstmt.setString(6, customVO.getVoBusiCondition());
+			pstmt.setString(7, customVO.getVoItem());
+			pstmt.setString(8, customVO.getVoPostNum());
+			
+			pstmt.setString(9, customVO.getVoAddr1());
+			pstmt.setString(10, customVO.getVoAddr2());
+			
+			
+			pstmt.setString(11, customVO.getVoTEL());
+			pstmt.setString(12, customVO.getVoFAX());
+			pstmt.setString(13, customVO.getVoHomePage());
+
+			pstmt.setString(14, customVO.getVoCoYN());
+			pstmt.setString(15, customVO.getVoForeignYN());
+			pstmt.setString(16, customVO.getVoTaxYN());
+			
+			pstmt.setString(17, customVO.getVoCountryENG());
+			pstmt.setString(18, customVO.getVoCountryKOR());
+			
+			
+			pstmt.setString(19, customVO.getVoSpecialRelation());
+			pstmt.setString(20, customVO.getVoTradeStop());
+			
+			pstmt.setDate(21, null);
+			if(customVO.getVoContractPeriod_S() != null) {
+				pstmt.setDate(21, Date.valueOf(customVO.getVoContractPeriod_S()));
+			}
+			
+			pstmt.setDate(22, null);
+			if(customVO.getVoContractPeriod_E() != null) {
+				pstmt.setDate(22, Date.valueOf(customVO.getVoContractPeriod_E()));
+			}
+			
+			pstmt.setString(23, customVO.getVoRegiInfoMan());
+			
+			pstmt.setString(24, customVO.getVoModiInfoMan());
+			
+			pstmt.setString(25, voBusiNumOrigin);
+			
+			result = pstmt.executeUpdate();
+		
+		} catch(SQLException e) {
+			System.out.println("<AccountManagerDao - updateCustom() 에러> : " + e.getMessage());
+			
+		} finally {
+			if(pstmt != null) { try { pstmt.close(); } catch(SQLException e) {} }
+			if(conn != null) { try { conn.close(); } catch(SQLException e) {} }
+		}
+		
+		return result;
+	}
+	
+	
+// ACCOUNT	
+	// ACCOUNT INSERT
+	public int insertAccount(AccountVO accountVO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			String sql = "INSERT INTO account(BUSI_NUM, FACTORY, TRADE_BANK, ACCOUNT_NUM) ";
+			sql += "VALUES(?, ?, ?, ?)";
+			
+			conn = this.dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, accountVO.getVoBusiNum());
+			pstmt.setString(2, accountVO.getVoFactory());
+			pstmt.setString(3, accountVO.getVoTradeBank());
+			pstmt.setString(4, accountVO.getVoAccountNum());
+			
+			System.out.println("--- busiNum : " + accountVO.getVoBusiNum());
+			System.out.println("--- factory : " + accountVO.getVoFactory());
+			System.out.println("--- trade : " + accountVO.getVoTradeBank());
+			System.out.println("--- num : " + accountVO.getVoAccountNum());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			System.out.println("<AccountDao - insertAccount() 에러> : " + e.getMessage());
+			
+		} finally {
+			if(pstmt != null) { try { pstmt.close(); } catch(SQLException e) {} }
+			if(conn != null) { try { conn.close(); } catch(SQLException e) {} }
+		}
+		
+		return result;
+	}
+	
+	
+	// ACCOUNT INSERT
+	public int updateAccount(AccountVO accountVO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			String sql = "UPDATE ACCOUNT SET ";
+			sql += "FACTORY=?, TRADE_BANK=?, ACCOUNT_NUM=?";
+			sql += "WHERE BUSI_NUM=?";
+			
+			conn = this.dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, accountVO.getVoFactory());
+			pstmt.setString(2, accountVO.getVoTradeBank());
+			pstmt.setString(3, accountVO.getVoAccountNum());
+			pstmt.setString(4, accountVO.getVoBusiNum());
+			
+			System.out.println("--- busiNum : " + accountVO.getVoBusiNum());
+			System.out.println("--- factory : " + accountVO.getVoFactory());
+			System.out.println("--- trade : " + accountVO.getVoTradeBank());
+			System.out.println("--- AccNum : " + accountVO.getVoAccountNum());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			System.out.println("<AccountDao - insertAccount() 에러> : " + e.getMessage());
+			
+		} finally {
+			if(pstmt != null) { try { pstmt.close(); } catch(SQLException e) {} }
+			if(conn != null) { try { conn.close(); } catch(SQLException e) {} }
+		}
+		
+		return result;
+	}
+}

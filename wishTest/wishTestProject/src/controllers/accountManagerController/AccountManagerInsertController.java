@@ -72,12 +72,6 @@ public class AccountManagerInsertController implements SubController {
 		customVO.setVoCoYN(request.getParameter("voCoYN"));
 		customVO.setVoForeignYN(request.getParameter("voForeignYN"));
 		customVO.setVoTaxYN(request.getParameter("voTaxYN"));
-				
-		
-		System.out.println("----- 법인 : " + request.getParameter("voCoYN"));
-		System.out.println("----- 해외 : " + request.getParameter("voForeignYN"));
-		System.out.println("----- 과세 : " + request.getParameter("voTaxYN"));
-		
 		
 		customVO.setVoCountryENG(request.getParameter("voCountryENG"));
 		customVO.setVoCountryKOR(request.getParameter("voCountryKOR"));
@@ -95,7 +89,6 @@ public class AccountManagerInsertController implements SubController {
 		customVO.setVoTradeStop(voTradeStop);
 		
 		String voContractPeriod_S_String = request.getParameter("voContractPeriod_S");
-		System.out.println("----- voContractPeriod_S_String : " + voContractPeriod_S_String);
 		if(voContractPeriod_S_String != null && voContractPeriod_S_String.length() > 0) {
 			LocalDate voContractPeriod_S = Date.valueOf(voContractPeriod_S_String).toLocalDate();
 			customVO.setVoContractPeriod_S(voContractPeriod_S);

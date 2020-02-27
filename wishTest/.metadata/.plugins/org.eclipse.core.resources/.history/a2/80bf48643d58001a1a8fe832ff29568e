@@ -1,0 +1,28 @@
+package tester;
+
+import javax.sql.DataSource;
+
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import mainDB.JNDITester;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/tester/dbTestContext.xml")
+public class DBTester {
+	private DataSource dataSource;
+	
+	@Before
+	public void setUp() {
+		this.dataSource = JNDITester.getDataSource();
+	}
+	
+	
+// dataSource
+	@Test
+	public void dataSource() {
+		
+	}
+}

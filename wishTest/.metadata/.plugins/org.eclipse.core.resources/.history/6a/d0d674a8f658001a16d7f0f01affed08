@@ -1,0 +1,34 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import javax.sql.DataSource;
+
+import vo.AccountVO;
+
+public class AccountDao {
+	private DataSource dataSource;
+	
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+	
+	
+	public int insertAccount(AccountVO accountVO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			String sql = "INSERT INTO account(voBusiNum, voFactory, voTradeBank, voAccountNum) ";
+			sql += "VALUES(?, ?, ?, ?)";
+			
+			
+		}
+		
+		return result;
+	}
+}

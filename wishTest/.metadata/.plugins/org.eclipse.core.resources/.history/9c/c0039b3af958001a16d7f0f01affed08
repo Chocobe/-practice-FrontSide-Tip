@@ -1,0 +1,13 @@
+package vo;
+
+public class AccountManagerVO {
+	private CustomVO customVO;
+	private AccountVO accountVO;
+	
+	
+	public AccountManagerVO() {}
+	
+	public AccountManagerVO(CustomVO customVO, AccountVO accountVO)	{
+		
+	}
+}

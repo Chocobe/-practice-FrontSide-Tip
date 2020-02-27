@@ -1,0 +1,26 @@
+package listener;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import controllers.SubController;
+import controllers.indexViewController.IndexViewController;
+
+public class ContextListener implements ServletContextListener {
+	@Override
+	public void contextInitialized(ServletContextEvent event) {
+		Map<String, SubController> subControllers = new HashMap<String, SubController>();
+		
+		subControllers.put("/index.do", new IndexViewController());
+		event.getServletContext().setAttribute("subControllers", subControllers);
+	}
+	
+	
+	@Override
+	public void contextDestroyed(ServletContextEvent event) {
+		
+	}
+}

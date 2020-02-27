@@ -1,0 +1,50 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import vo.AccountVO;
+
+public class AccountDao {
+	private DataSource dataSource;
+	
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+	
+	
+	public int insertAccount(AccountVO accountVO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			String sql = "INSERT INTO account(voBusiNum, voFactory, voTradeBank, voAccountNum) ";
+			sql += "VALUES(?, ?, ?, ?)";
+			
+			conn = this.dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, accountVO.getVoBusiNum());
+			pstmt.setString(2, accountVO.getVoFactory());
+			pstmt.setString(3, accountVO.getVoTradeBank());
+			pstmt.setString(4, accountVO.getVoAccountNum());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			System.out.println("<AccountDao - insertAccount() 에러> : " + e.getMessage());
+			
+		} finally {
+			if(pstmt != null) { try { pstmt.close(); } catch(SQLException e) {} }
+			
+		}
+		
+		return result;
+	}
+}

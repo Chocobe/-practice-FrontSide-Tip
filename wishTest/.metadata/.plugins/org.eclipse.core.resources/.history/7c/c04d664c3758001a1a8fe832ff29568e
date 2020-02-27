@@ -1,0 +1,12 @@
+package mainDB;
+
+import javax.activation.DataSource;
+
+public class JNDITester {
+	private DataSource dataSource;
+	
+	
+	public DataSource getDataSource() {
+		return this.dataSource;
+	}
+}

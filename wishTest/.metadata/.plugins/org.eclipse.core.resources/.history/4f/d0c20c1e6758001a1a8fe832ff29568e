@@ -1,0 +1,8 @@
+package vo;
+
+import java.util.List;
+
+public class AccountManagerVO {
+	private List<CustomVO> customList;
+	private List<AccountVO> accountList;
+}

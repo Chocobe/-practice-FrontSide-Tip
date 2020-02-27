@@ -1,0 +1,21 @@
+package service;
+
+import java.util.List;
+
+import dao.CustomDao;
+import vo.CustomVO;
+
+public class CustomService {
+	private CustomDao customDao;
+	
+	
+	public CustomService() {
+		this.customDao = new CustomDao();
+	}
+	
+	
+// searchCustom
+	public List<CustomVO> searchCustom(String voBusiNum, String voCustom) {
+		return customDao.selectCustom(voBusiNum, voCustom);
+	}
+}

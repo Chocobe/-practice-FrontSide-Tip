@@ -1,0 +1,14 @@
+package tester;
+
+import java.sql.Connection;
+
+import javax.sql.DataSource;
+
+import mainDB.JNDITester;
+
+public class DBTester {
+	public static void main(String[] args) {
+		DataSource ds = JNDITester.getDataSource();
+		Connection conn = ds.getConnection();
+	}
+}

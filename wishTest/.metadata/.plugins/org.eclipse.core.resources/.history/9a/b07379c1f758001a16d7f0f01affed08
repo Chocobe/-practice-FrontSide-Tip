@@ -1,0 +1,53 @@
+package controllers.accountManagerController;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import controllers.ControllerUtil;
+import controllers.SubController;
+import service.AccountService;
+import service.CustomService;
+import vo.AccountVO;
+import vo.CustomVO;
+
+public class AccountManagerSearchController implements SubController {
+	private CustomService customService;
+	private AccountService accountService;
+	
+	
+	public AccountManagerSearchController() {
+		this.customService = new CustomService();
+		this.accountService = new AccountService();
+	}
+	
+	
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) 
+					throws ServletException, IOException {
+		String voBusiNum = request.getParameter("voBusiNum");
+		String voCustom = request.getParameter("voCustom");
+		
+		CustomVO customVO = customService.searchCustom(voBusiNum, voCustom);
+		AccountVO accountVO = accountService.searchAccount(customVO.getVoBusiNum());
+		
+		
+		
+		Gson gson = new Gson();
+		
+		
+		
+		String stringJSON = gson.toJson(customVO);
+		
+		PrintWriter out = response.getWriter();
+		out.print(stringJSON);
+		
+		out.close();
+	}
+}

@@ -1,0 +1,29 @@
+package vo;
+
+import java.util.List;
+
+public class AccountManagerVO {
+	private List<CustomVO> customList;
+	private List<AccountVO> accountList;
+	
+	
+// CUSTOM
+	public List<CustomVO> getCustomList() {
+		return customList;
+	}
+	public void setCustomList(List<CustomVO> customList) {
+		this.customList = customList;
+	}
+	
+	
+// ACOUNT
+	public List<AccountVO> getAccountList() {
+		return accountList;
+	}
+	public void setAccountList(List<AccountVO> accountList) {
+		this.accountList = accountList;
+	}
+	
+	
+	
+}

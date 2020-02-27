@@ -1,0 +1,12 @@
+package dao;
+
+import javax.sql.DataSource;
+
+public class AccountDao {
+	private DataSource dataSource;
+	
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+}

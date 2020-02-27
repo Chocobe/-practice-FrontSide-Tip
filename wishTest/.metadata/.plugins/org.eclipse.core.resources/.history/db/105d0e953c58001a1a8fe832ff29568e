@@ -1,0 +1,14 @@
+package tester;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.servlet.annotation.WebServlet;
+import javax.sql.DataSource;
+
+import mainDB.JNDITester;
+
+@WebServlet("/test")
+public class DBTester {
+	
+}

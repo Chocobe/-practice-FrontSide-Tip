@@ -1,0 +1,7 @@
+package mainDB;
+
+import javax.activation.DataSource;
+
+public class JNDITester {
+	
+}

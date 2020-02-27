@@ -1,0 +1,19 @@
+package dao;
+
+import javax.sql.DataSource;
+
+import vo.AccountVO;
+
+public class AccountDao {
+	private DataSource dataSource;
+	
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+	
+	
+	public int insertAccount(AccountVO accountVO) {
+		
+	}
+}

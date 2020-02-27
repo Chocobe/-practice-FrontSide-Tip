@@ -1,0 +1,59 @@
+package service;
+
+import java.util.List;
+
+import dao.AccountDao;
+import dao.AccountManagerDao;
+import dao.CustomDao;
+import mainDB.DataSourceJNDI;
+import vo.AccountManagerVO;
+import vo.AccountVO;
+import vo.CustomVO;
+
+public class AccountManagerService {
+	private AccountManagerDao accountManagerDao;
+	
+	
+	public AccountManagerService() {
+		this.accountManagerDao = new AccountManagerDao();
+		this.accountManagerDao.setDataSource(DataSourceJNDI.getDataSource());
+	}
+	
+	
+// CUSTOM & ACCOUNT
+	public AccountManagerVO searchData(String voBusiNum, String voCustom) {
+		return 
+	}
+	
+
+// CUSTOM
+	// searchCustom
+	public CustomVO searchCustom(String voBusiNum, String voCustom) {
+		return accountManagerDao.selectCustom(voBusiNum, voCustom);
+	}
+	
+	
+	// insertCustom
+	public int insertCustom(CustomVO customVO) {
+		return accountManagerDao.insertCustom(customVO);
+	}
+	
+	
+	// deleteCustom
+	public int deleteCustom(String voBusiNum) {
+		return accountManagerDao.deleteCustom(voBusiNum);
+	}
+	
+	
+// ACCOUNT
+	// insertAccount
+	public int insertAccount(AccountVO accountVO) {
+		return accountManagerDao.insertAccount(accountVO);
+	}
+	
+	
+	// searchAccount
+	public AccountVO searchAccount(String voBusiNum) {
+		return accountDao.searchAccount(voBusiNum);
+	}
+}

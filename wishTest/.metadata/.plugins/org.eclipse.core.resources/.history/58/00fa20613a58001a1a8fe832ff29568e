@@ -1,0 +1,21 @@
+package tester;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import mainDB.JNDITester;
+
+public class DBTester {
+	public static void main(String[] args) {
+		try {
+			DataSource ds = JNDITester.getDataSource();
+			Connection conn = ds.getConnection();
+			System.out.println(conn);
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}

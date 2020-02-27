@@ -1,0 +1,36 @@
+package listener;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import controllers.SubController;
+import controllers.accountManagerController.CustomInsertController;
+import controllers.accountManagerController.CustomSearchController;
+import controllers.accountManagerController.AccountManagerViewController;
+
+public class ContextListener implements ServletContextListener {
+	@Override
+	public void contextInitialized(ServletContextEvent event) {
+		Map<String, SubController> subControllers = new HashMap<String, SubController>();
+		
+		// accountManagerView 페이지 요청 컨트롤러
+		subControllers.put("/accountManagerView.do", new AccountManagerViewController());
+		
+		// accountManagerInsert
+		subControllers.put("/customInsert.do", new CustomInsertController());
+		
+		// customSearch
+		subControllers.put("/customSearch.do", new CustomSearchController());
+		
+		
+		
+		event.getServletContext().setAttribute("subControllers", subControllers);
+	}
+	
+	
+	@Override
+	public void contextDestroyed(ServletContextEvent event) { }
+}

@@ -1,0 +1,8 @@
+package controllers;
+
+import javax.servlet.annotation.WebServlet;
+
+@WebServlet("*.do")
+public class FrontController {
+	
+}

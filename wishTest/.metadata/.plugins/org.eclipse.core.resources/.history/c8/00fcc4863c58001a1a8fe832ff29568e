@@ -1,0 +1,12 @@
+package tester;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import mainDB.JNDITester;
+
+public class DBTester {
+	
+}

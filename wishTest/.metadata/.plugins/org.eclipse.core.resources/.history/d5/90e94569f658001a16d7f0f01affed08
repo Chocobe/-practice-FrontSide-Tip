@@ -1,0 +1,17 @@
+package service;
+
+import dao.AccountDao;
+import mainDB.DataSourceJNDI;
+
+public class AccountService {
+	private AccountDao accountDao;
+	
+	
+	public AccountService() {
+		this.accountDao = new AccountDao();
+		this.accountDao.setDataSource(DataSourceJNDI.getDataSource());
+	}
+	
+	
+	
+}

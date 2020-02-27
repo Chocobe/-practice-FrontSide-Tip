@@ -1,0 +1,12 @@
+package service;
+
+import dao.CustomDao;
+
+public class CustomService {
+	private CustomDao customDao;
+	
+	
+	public CustomService() {
+		this.customDao = new CustomDao();
+	}
+}

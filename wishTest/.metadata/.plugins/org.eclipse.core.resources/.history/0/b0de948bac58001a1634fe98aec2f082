@@ -1,0 +1,23 @@
+package controllers.accountManagerController;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import controllers.SubController;
+import service.CustomService;
+
+public class CustomDeleteController implements SubController {
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) 
+					throws ServletException, IOException {
+		String voBusiNum = request.getParameter("voBusiNum");
+		
+		CustomService customService = new CustomService();
+		int result = customService.deleteCustom(voBusiNum);
+		
+		return result;
+	}
+}

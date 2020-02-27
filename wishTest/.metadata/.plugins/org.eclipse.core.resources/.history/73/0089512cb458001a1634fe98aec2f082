@@ -1,0 +1,27 @@
+package dao;
+
+import java.sql.Connection;
+
+import javax.sql.DataSource;
+
+import vo.AccountVO;
+
+public class AccountDao {
+	private DataSource dataSource;
+	
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+	
+	
+	public int insertAccount(AccountVO accountVO) {
+		Connection conn = dataSource.getConnection(); 
+		
+		int result = 0;
+		
+		
+		
+		return result;
+	}
+}

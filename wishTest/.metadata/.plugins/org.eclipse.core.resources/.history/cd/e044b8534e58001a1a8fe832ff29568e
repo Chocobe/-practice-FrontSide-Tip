@@ -1,0 +1,7 @@
+package controllers.filter;
+
+import javax.servlet.Filter;
+
+public class EncodingFilter implements Filter {
+	
+}

@@ -1,0 +1,43 @@
+package vo;
+
+import java.time.LocalDate;
+
+public class CustomVO {
+	private String voBusiNum;
+	private String voCustom;
+	private String voShort;
+	
+	private String voCEO;
+	private String voChargePerson;
+	private String voBusiCondition;
+	private String voItem;
+	private String voPostNum;
+	
+	private String voAddr1;
+	private String voAddr2;
+	
+	private String voTEL;
+	private String voFAX;
+	private String voHomePage;
+	
+	private String voCoYN;
+	private String voForeignYN;
+	private String voTaxYN;
+	
+	private String voCountryENG;
+	private String voCountryKOR;
+	
+	private String voSpecialRelation;
+	private String voTradeStop;
+	
+	private LocalDate voContractPeriod_S;
+	private LocalDate voContractPeriod_E;
+	
+	private String voRegiInfoMan;
+	private String voRegiInfoDate;
+	private String voModiInfoMan;
+	private LocalDate voModiInfoDate;
+	
+	
+	public CustomVO() {}
+}

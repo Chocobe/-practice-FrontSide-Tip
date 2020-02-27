@@ -1,0 +1,73 @@
+CREATE TABLE custom(
+	BUSI_NUM					CHAR(20)	PRIMARY KEY,
+	CUSTOM					CHAR(20)	NOT NULL,
+	SHORT						CHAR(20),
+	
+	CEO						CHAR(10),
+	CHARGE_PERSON			CHAR(10),
+	BUSI_CONDITION			CHAR(10),
+	ITEM						CHAR(10),
+	POST_NUM					CHAR(10),
+	
+	ADDR1						VARCHAR(80),
+	ADDR2						VARCHAR(80),
+	
+	TEL						CHAR(10),
+	FAX						CHAR(10),
+	HOMEPAGE					CHAR(20),
+	
+	CO_YN						CHAR(1),
+	FOREIGN_YN				CHAR(1),
+	TAX_YN					CHAR(1),
+	
+	COUNTRY_ENG				CHAR(20),
+	COUNTRY_KOR				CHAR(20),
+	
+	SPECIAL_RELATION		CHAR(1),
+	TRADE_STOP				CHAR(1),
+	
+	CONTRACT_PERIOD_S		TIMESTAMP,
+	CONTRACT_PERIOD_E		TIMESTAMP,
+	
+	REGI_INFO_MAN			CHAR(10),
+	REGI_INFO_DATE			TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+	MODI_INFO_MAN			CHAR(10),
+	MODI_INFO_DATE			TIMESTAMP
+);
+
+DESC custom;
+
+SELECT * FROM custom;
+
+DELETE FROM custom;
+
+
+
+
+-- custom JOIN account
+SELECT * FROM custom, ACCOUNT
+WHERE custom.BUSI_NUM = ACCOUNT.busi_num;
+
+
+SELECT * FROM custom JOIN account
+ON custom.BUSI_NUM = account.BUSI_NUM
+WHERE custom.BUSI_NUM LIKE '%1%' 
+  AND custom.BUSI_NUM LIKE '%2%';
+
+
+
+DELETE FROM custom;
+
+SELECT * FROM custom
+WHERE busi_num='' OR custom='CUSTOM';
+
+UPDATE custom
+SET CO_YN = 'N', FOREIGN_YN = 'Y', TAX_YN = 'N', MODI_INFO_MAN='kim', MODI_INFO_DATE=CURRENT_TIMESTAMP()
+WHERE BUSI_NUM='aa';
+
+SELECT * FROM custom
+WHERE BUSI_NUM='aa' OR custom='bb';
+
+SELECT * FROM custom JOIN account
+ON custom.BUSI_NUM = account.BUSI_NUM
+WHERE custom.BUSI_NUM='aa' OR custom.CUSTOM='bb';

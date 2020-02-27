@@ -1,0 +1,11 @@
+package vo;
+
+public class AccountVO {
+	private String voBusiNum;
+	private String voFactory;
+	private String voTradeBank;
+	private String voAccountNum;
+	
+	
+	public AccountVO() { }
+}

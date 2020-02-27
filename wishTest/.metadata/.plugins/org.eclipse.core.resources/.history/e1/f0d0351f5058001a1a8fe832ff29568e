@@ -1,0 +1,8 @@
+package snippet;
+
+public class Snippet {
+	public static void main(String[] args) {
+		System.out.println("<EncodingFilter - doFilter() 알림> : 설정된 encoding : " + this.encoding);
+	}
+}
+

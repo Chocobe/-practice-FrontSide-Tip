@@ -1,0 +1,251 @@
+package vo;
+
+import java.time.LocalDate;
+
+public class CustomVO {
+	private String voBusiNum;
+	private String voCustom;
+	private String voShort;
+	
+	private String voCEO;
+	private String voChargePerson;
+	private String voBusiCondition;
+	private String voItem;
+	private String voPostNum;
+	
+	private String voAddr1;
+	private String voAddr2;
+	
+	private String voTEL;
+	private String voFAX;
+	private String voHomePage;
+	
+	private String voCoYN;
+	private String voForeignYN;
+	private String voTaxYN;
+	
+	private String voCountryENG;
+	private String voCountryKOR;
+	
+	private String voSpecialRelation;
+	private String voTradeStop;
+	
+	private LocalDate voContractPeriod_S;
+	private LocalDate voContractPeriod_E;
+	
+	private String voRegiInfoMan;
+	private String voRegiInfoDate;
+	private String voModiInfoMan;
+	private LocalDate voModiInfoDate;
+	
+	
+	public CustomVO() {}
+
+
+	public String getVoBusiNum() {
+		return voBusiNum;
+	}
+	public void setVoBusiNum(String voBusiNum) {
+		this.voBusiNum = voBusiNum;
+	}
+
+
+	public String getVoCustom() {
+		return voCustom;
+	}
+	public void setVoCustom(String voCustom) {
+		this.voCustom = voCustom;
+	}
+
+
+	public String getVoShort() {
+		return voShort;
+	}
+	public void setVoShort(String voShort) {
+		this.voShort = voShort;
+	}
+
+
+	public String getVoCEO() {
+		return voCEO;
+	}
+	public void setVoCEO(String voCEO) {
+		this.voCEO = voCEO;
+	}
+
+
+	public String getVoChargePerson() {
+		return voChargePerson;
+	}
+	public void setVoChargePerson(String voChargePerson) {
+		this.voChargePerson = voChargePerson;
+	}
+
+
+	public String getVoBusiCondition() {
+		return voBusiCondition;
+	}
+	public void setVoBusiCondition(String voBusiCondition) {
+		this.voBusiCondition = voBusiCondition;
+	}
+
+
+	public String getVoItem() {
+		return voItem;
+	}
+	public void setVoItem(String voItem) {
+		this.voItem = voItem;
+	}
+
+
+	public String getVoPostNum() {
+		return voPostNum;
+	}
+	public void setVoPostNum(String voPostNum) {
+		this.voPostNum = voPostNum;
+	}
+
+
+	public String getVoAddr1() {
+		return voAddr1;
+	}
+	public void setVoAddr1(String voAddr1) {
+		this.voAddr1 = voAddr1;
+	}
+
+
+	public String getVoAddr2() {
+		return voAddr2;
+	}
+	public void setVoAddr2(String voAddr2) {
+		this.voAddr2 = voAddr2;
+	}
+
+
+	public String getVoTEL() {
+		return voTEL;
+	}
+	public void setVoTEL(String voTEL) {
+		this.voTEL = voTEL;
+	}
+
+
+	public String getVoFAX() {
+		return voFAX;
+	}
+	public void setVoFAX(String voFAX) {
+		this.voFAX = voFAX;
+	}
+
+
+	public String getVoHomePage() {
+		return voHomePage;
+	}
+	public void setVoHomePage(String voHomePage) {
+		this.voHomePage = voHomePage;
+	}
+
+
+	public String getVoCoYN() {
+		return voCoYN;
+	}
+	public void setVoCoYN(String voCoYN) {
+		this.voCoYN = voCoYN;
+	}
+
+
+	public String getVoForeignYN() {
+		return voForeignYN;
+	}
+	public void setVoForeignYN(String voForeignYN) {
+		this.voForeignYN = voForeignYN;
+	}
+
+
+	public String getVoTaxYN() {
+		return voTaxYN;
+	}
+	public void setVoTaxYN(String voTaxYN) {
+		this.voTaxYN = voTaxYN;
+	}
+
+
+	public String getVoCountryENG() {
+		return voCountryENG;
+	}
+	public void setVoCountryENG(String voCountryENG) {
+		this.voCountryENG = voCountryENG;
+	}
+
+
+	public String getVoCountryKOR() {
+		return voCountryKOR;
+	}
+	public void setVoCountryKOR(String voCountryKOR) {
+		this.voCountryKOR = voCountryKOR;
+	}
+
+
+	public String getVoSpecialRelation() {
+		return voSpecialRelation;
+	}
+	public void setVoSpecialRelation(String voSpecialRelation) {
+		this.voSpecialRelation = voSpecialRelation;
+	}
+
+
+	public String getVoTradeStop() {
+		return voTradeStop;
+	}
+	public void setVoTradeStop(String voTradeStop) {
+		this.voTradeStop = voTradeStop;
+	}
+
+
+	public LocalDate getVoContractPeriod_S() {
+		return voContractPeriod_S;
+	}
+	public void setVoContractPeriod_S(LocalDate voContractPeriod_S) {
+		this.voContractPeriod_S = voContractPeriod_S;
+	}
+
+
+	public LocalDate getVoContractPeriod_E() {
+		return voContractPeriod_E;
+	}
+	public void setVoContractPeriod_E(LocalDate voContractPeriod_E) {
+		this.voContractPeriod_E = voContractPeriod_E;
+	}
+
+
+	public String getVoRegiInfoMan() {
+		return voRegiInfoMan;
+	}
+	public void setVoRegiInfoMan(String voRegiInfoMan) {
+		this.voRegiInfoMan = voRegiInfoMan;
+	}
+
+
+	public String getVoRegiInfoDate() {
+		return voRegiInfoDate;
+	}
+	public void setVoRegiInfoDate(String voRegiInfoDate) {
+		this.voRegiInfoDate = voRegiInfoDate;
+	}
+
+
+	public String getVoModiInfoMan() {
+		return voModiInfoMan;
+	}
+	public void setVoModiInfoMan(String voModiInfoMan) {
+		this.voModiInfoMan = voModiInfoMan;
+	}
+
+
+	public LocalDate getVoModiInfoDate() {
+		return voModiInfoDate;
+	}
+	public void setVoModiInfoDate(LocalDate voModiInfoDate) {
+		this.voModiInfoDate = voModiInfoDate;
+	}
+}

@@ -1,0 +1,163 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import vo.CustomVO;
+
+public class CustomDao {
+	private DataSource dataSource;
+	
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+	
+	
+// select
+	public List<CustomVO> selectCustom(String voBusiNum, String voCustom) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<CustomVO> customList = new ArrayList<CustomVO>();
+		
+		try {
+			String sql = "SELECT * FROM CUSTOM ";
+			sql += "WHERE BUSI_NUM=? OR CUSTOM=?";
+			
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, voBusiNum);
+			pstmt.setString(2, voCustom);
+			
+			if(voBusiNum == null) {
+				pstmt.setString(1, "");
+			}
+			
+			if(voCustom == null) {
+				pstmt.setString(2, "");
+			}
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				CustomVO customVO = new CustomVO();
+				
+				customVO.setVoBusiNum(rs.getString("BUSI_NUM"));
+				customVO.setVoCustom(rs.getString("CUSTOM"));
+				customVO.setVoShort(rs.getString("SHORT"));
+				
+				customVO.setVoCEO(rs.getString("CEO"));
+				customVO.setVoChargePerson(rs.getString("CHARGE_PERSON"));
+				customVO.setVoBusiCondition(rs.getString("BUSI_CONDITION"));
+				customVO.setVoItem(rs.getString("ITEM"));
+				customVO.setVoPostNum(rs.getString("POST_NUM"));
+				
+				customVO.setVoAddr1(rs.getString("ADDR1"));
+				customVO.setVoAddr2(rs.getString("ADDR2"));
+				
+				customVO.setVoTEL(rs.getString("TEL"));
+				customVO.setVoFAX(rs.getString("FAX"));
+				customVO.setVoHomePage(rs.getString("HOMEPAGE"));
+				
+				customVO.setVoCoYN(rs.getString("CO_YN"));
+				customVO.setVoForeignYN(rs.getString("FOREIGN_YN"));
+				customVO.setVoTaxYN(rs.getString("TAX_YN"));
+
+				customVO.setVoCountryENG(rs.getString("COUNTRY_ENG"));
+				customVO.setVoCountryKOR(rs.getString("COUNTRY_KOR"));
+				
+				customVO.setVoSpecialRelation(rs.getString("SPECIAL_RELATION"));
+				customVO.setVoTradeStop(rs.getString("TRADE_STOP"));
+				
+				customVO.setVoContractPeriod_S(rs.getDate("CONTRACT_PERIOD_S").toLocalDate());
+				customVO.setVoContractPeriod_E(rs.getDate("CONTRACT_PERIOD_E").toLocalDate());
+
+				customVO.setVoRegiInfoMan(rs.getString("REGI_INFO_MAN"));
+				customVO.setVoRegiInfoDate(rs.getTimestamp("REGI_INFO_DATE"));
+				customVO.setVoModiInfoMan(rs.getString("MODI_INFO_MAN"));
+				customVO.setVoModiInfoDate(rs.getTimestamp("MODI_INFO_DATE"));
+				
+				customList.add(customVO);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("<CustomDao - selectCustom() 에러> : " + e.getMessage());
+			
+		} finally {
+			if(rs != null) { try { rs.close(); } catch(SQLException e) {} }
+			if(pstmt != null) { try { pstmt.close(); } catch(SQLException e) {} }
+			if(conn != null) { try { conn.close(); } catch(SQLException e) {} }
+		}
+		
+		return customList;
+	}
+	
+	
+	public int insertCustom(CustomVO customVO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			String sql = "INSERT INTO CUSTOM(BUSI_NUM, CUSTOM, SHORT, " +
+											"CEO, CHARGE_PERSON, BUSI_CONDITION, ITEM, POST_NUM, " +
+											"ADDR1, ADDR2, " +
+											
+											"TEL, FAX, HOMEPAGE, " +
+											"CO_YN, FOREIGN_YN, TAX_YN, " +
+											"COUNTRY_ENG, COUNTRY_KOR, " +
+											
+											"SPECIAL_RELATION, TRADE_STOP, " +
+											"CONTRACT_PERIOD_S, CONTRACT_PERIOD_E, " +
+											"REGI_INFO_MAN, REGI_INFO_DATE, " +
+											"MODI_INFO_MAN, MODI_INFO_DATE ";
+			sql += "VALUES(?, ?, ?, " +
+						  "?, ?, ?, ?, ?, " +
+						  "?, ?, " +
+						  
+						  "?, ?, ?, " +
+						  "?, ?, ?, " +
+						  "?, ?, " +
+						  
+						  "?, ?, " +
+						  "?, ?, " +
+						  "?, CURRENT_TIMESTAMP(), " +
+						  "null, null)";
+			
+			
+			
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, customVO.getVoBusiNum());
+			pstmt.setString(2, customVO.getVoCustom());
+			pstmt.setString(3, customVO.getVoShort());
+			
+			pstmt.setString(4, customVO.getVoCEO());
+			pstmt.setString(5, customVO.getVoChargePerson());
+			pstmt.setString(6, customVO.getVoBusiCondition());
+			pstmt.setString(7, customVO.getVoItem());
+			pstmt.setString(8, customVO.getVoPostNum());
+			
+			pstmt.setString(9, customVO.getVoAddr1());
+			pstmt.setString(10, customVO.getVoAddr2());
+			
+			pstmt.setString(11, customVO.getVoTEL());
+			pstmt.setString(12, customVO.getVoFAX());
+			pstmt.setString(13, customVO.getVoHomePage());
+			
+			
+		}
+		
+		return result;
+	}
+}

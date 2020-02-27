@@ -1,0 +1,32 @@
+1582680464563	Rename package 'test'
+1582682569090	Delete element
+1582684123001	Rename type 'CutomVO'
+1582686579305	Move 'index.jsp' to 'views'
+1582690361859	Rename package 'controllers.encoding'
+1582691173391	Delete element
+1582691247552	Rename package 'controllers.filter'
+1582691405301	Rename package 'controllers.indexViewController'
+1582691426493	Rename type 'IndexViewController'
+1582691462567	Move 'index.jsp' to 'accountManager'
+1582691555272	Rename resource 'index.jsp'
+1582692096287	Rename type 'AccountManagerInputController'
+1582699907220	Rename resource 'accountManagerView.jsp'
+1582699970017	Rename resource 'accountManagerView.html'
+1582700005248	Delete element
+1582700065005	Rename resource 'accountManagerView.html'
+1582700465001	Rename type 'AccountMamagerDAO'
+1582700536354	Rename compilation unit 'AccountManagerDAO.java'
+1582701457094	Delete element
+1582702489521	Rename type 'AccountManagerInsertController'
+1582702499497	Rename type 'AccountManagerSearchController'
+1582702533236	Rename type 'CustomManagerInsertController'
+1582702538627	Rename type 'CustomManagerSearchController'
+1582704585849	Rename type 'JNDITester'
+1582732061637	Delete element
+1582762936729	Rename type 'CustomDeleteController'
+1582762943304	Rename type 'CustomInsertController'
+1582762952690	Rename type 'CustomSearchController'
+1582763308545	Rename type 'CustomService'
+1582763409437	Delete element
+1582764474786	Delete element
+1582769910493	Delete element

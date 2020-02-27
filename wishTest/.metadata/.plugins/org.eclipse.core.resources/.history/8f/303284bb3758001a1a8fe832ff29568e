@@ -1,0 +1,104 @@
+package mainDB;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.activation.DataSource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import com.sun.corba.se.pept.transport.Connection;
+
+public class JNDITester {
+	public class DBConnectorJNDI {
+		private static DataSource dataSource;
+		
+		private static final String RESOURCE_DIR;
+		private static final String RESOURCE_NAME;
+		
+		static {
+			RESOURCE_DIR = "java:/comp/env";
+			RESOURCE_NAME = "jdbc/mysql/awesomePet";
+			dataSource = initDataSource();
+		}
+		
+		
+	// 생성자
+		private JNDITester() { }
+		
+		
+	// DataSource 객체를 생성(초기화) 합니다.
+		private static DataSource initDataSource() {
+			DataSource ds = null;
+			
+			try {
+				Context initContext = new InitialContext();
+				
+				// resource 경로를 가진 객체를 생성합니다.
+				Context envContext = (Context)initContext.lookup(RESOURCE_DIR);
+				
+				// 경로상에서 resource명으로 객체를 가져옵니다.
+				ds = (DataSource)envContext.lookup(RESOURCE_NAME);
+				
+				System.out.println("<DBConnectorJNDI 알림> : DataSource 객체 생성을 정상 완료 하였습니다.");
+				
+			} catch(NamingException e) {
+				System.out.println("<DBConnectorJNDI 에러> : " + e.getMessage());
+				e.printStackTrace();
+			}
+			
+			return ds;
+		}
+		
+		
+	// 생성된 DataSource 객체 접근자(getter) 입니다. - 쿼리 메서드 -
+		public static DataSource getDataSource() {
+			return dataSource;
+		}
+		
+		
+	// 자원해제를 위한 정적 메서드 입니다.
+		public static void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				close(conn, pstmt);
+				
+			} catch(SQLException e) {
+				System.out.println("<DBConnectorJNDI 에러> : " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		
+		public static void close(Connection conn, PreparedStatement pstmt) {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				close(conn);
+				
+			} catch(SQLException e) {
+				System.out.println("<DBConnectorJNDI 에러> : " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		
+		public static void close(Connection conn) {
+			try {
+				if(conn != null) {
+					conn.close();
+				}
+				
+				System.out.println("<DBConnectorJNDI 알림> : 모든 자원해제가 완료 되었습니다.");
+				
+			} catch(SQLException e) {
+				System.out.println("<DBConnectorJNDI 에러> : " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	}
+}

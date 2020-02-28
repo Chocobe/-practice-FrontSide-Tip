@@ -21,10 +21,15 @@
 	String accountManagerView_js = application.getRealPath("/js/accountManager/accountManagerView.js");
 	File accountManagerView_js_file = new File(accountManagerView_js);
 	Date accountManagerView_js_ver = new Date(accountManagerView_js_file.lastModified());
+	
+	String postApi_js = application.getRealPath("/js/accountManager/postApi.js");
+	File postApi_js_file = new File(postApi_js);
+	Date postApi_js_ver = new Date(postApi_js_file.lastModified());
 %>
 
 <c:set var="accountManagerView_css_ver" value="<%= accountManagerView_css_ver %>"/>
 <c:set var="accountManagerView_js_ver" value="<%= accountManagerView_js_ver %>"/>
+<c:set var="postApi_js_ver" value="<%= postApi_js_ver %>"/>
 
 
 <!DOCTYPE html>
@@ -44,9 +49,9 @@
                 <input type="button" class="init" value="초기화" onclick="initPage(`${contextPath}`);">
                 <input type="button" class="insert" value="저장" onclick="insertData(`${contextPath}`);">
                 <input type="button" class="delete" value="삭제" onclick="deleteData(`${contextPath}`);">
-                <input type="button" class="print" value="인쇄" disabled>
+                <input type="button" class="print" value="인쇄" onclick="printData();" disabled>
                 <input type="button" class="config" value="화면설정" disabled>
-                <input type="button" class="close" value="닫기" disabled>
+                <input type="button" class="close" value="닫기" onclick="javascript:self.close();">
             </div>
             
             
@@ -59,7 +64,7 @@
                             <th>사업자번호</th>
                             
                             <td>
-                                <input type="text" name="voBusiNum" class="searchVoBusiNum">
+                                <input type="text" name="voBusiNum" class="searchVoBusiNum" maxlength="20">
                             </td>
                             
                             <td></td>
@@ -69,7 +74,7 @@
                             <th>거래처명</th>
                             
                             <td>
-                                <input type="text" name="voCustom" class="searchVoCustom">
+                                <input type="text" name="voCustom" class="searchVoCustom" maxlength="20">
                             </td>
                             
                             <td>
@@ -101,7 +106,8 @@
                             <th>사업자번호</th>
                             
                             <td>
-                                <input type="text" name="voBusiNum" class="voBusiNum">
+                            	<p class="fixedVoBusiNum"></p>
+                                <input type="text" name="voBusiNum" class="voBusiNum" maxlength="20">
                                 <input type="hidden" name="voBusiNumOrigin" class="voBusiNumOrigin">
                             </td>
                             
@@ -109,7 +115,7 @@
                             <th>약&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;칭</th>
                             
                             <td>
-                                <input type="text" name="voShort" class="voShort">
+                                <input type="text" name="voShort" class="voShort" maxlength="20">
                             </td>
                         </tr>
                         
@@ -117,7 +123,7 @@
                             <th>거 래 처 명</th>
                             
                             <td colspan="4">
-                                <input type="text" name="voCustom" class="voCustom longBox">
+                                <input type="text" name="voCustom" class="voCustom longBox" maxlength="20">
                             </td>
                         </tr>
                         
@@ -125,14 +131,14 @@
                             <th>대&nbsp;&nbsp;&nbsp;표&nbsp;&nbsp;&nbsp;자</th>
                             
                             <td>
-                                <input type="text" name="voCEO" class="voCEO">
+                                <input type="text" name="voCEO" class="voCEO" maxlength="10">
                             </td>
                             
                             
                             <th>담&nbsp;&nbsp;&nbsp;당&nbsp;&nbsp;&nbsp;자</th>
                             
                             <td>
-                                <input type="text" name="voChargePerson" class="voChargePerson">
+                                <input type="text" name="voChargePerson" class="voChargePerson" maxlength="10">
                             </td>
                         </tr>
                         
@@ -140,14 +146,14 @@
                             <th>업&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;태</th>
                             
                             <td>
-                                <input type="text" name="voBusiCondition" class="voBusiCondition">
+                                <input type="text" name="voBusiCondition" class="voBusiCondition" maxlength="10">
                             </td>
                             
                             
                             <th>종&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
                             
                             <td>
-                                <input type="text" name="voItem" class="voItem">
+                                <input type="text" name="voItem" class="voItem" maxlength="10">
                             </td>
                         </tr>
 						
@@ -155,14 +161,14 @@
                             <th>우 편 번 호</th>
                             
                             <td>
-                                <input type="text" name="voPostNum" class="voPostNum">
-                                <input type="button" class="postSearchButton" value="검색" disabled>
+                                <input type="text" name="voPostNum" class="voPostNum" maxlength="10">
+                                <input type="button" class="postSearchButton" value="검색" onclick="searchPost();">
                             </td>
                             
                             <th>주&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;1</th>
                             
                             <td>
-                                <input type="text" name="voAddr1" class="voAddr1">
+                                <input type="text" name="voAddr1" class="voAddr1" maxlength="80">
                             </td>
                         </tr>
                             
@@ -170,7 +176,7 @@
                             <th>주&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;2</th>
                             
                             <td colspan="3">
-                                <input type="text" name="voAddr2" class="voAddr2">
+                                <input type="text" name="voAddr2" class="voAddr2" maxlength="80">
                             </td>
                         </tr>
                         
@@ -178,13 +184,13 @@
                             <th>전 화 번 호</th>
                             
                             <td>
-                                <input type="text" name="voTEL" class="voTEL">
+                                <input type="text" name="voTEL" class="voTEL" maxlength="10">
                             </td>
                             
                             <th>팩 스 번 호</th>
                             
                             <td>
-                                <input type="text" name="voFAX" class="voFAX">
+                                <input type="text" name="voFAX" class="voFAX" maxlength="10">
                             </td>
                         </tr>
                         
@@ -192,7 +198,7 @@
                             <th>홈 페 이 지</th>
                             
                             <td colspan="3">
-                                <input type="text" name="voHomePage" class="voHomePage">
+                                <input type="text" name="voHomePage" class="voHomePage" maxlength="20">
                             </td>
                         </tr>
                         
@@ -239,12 +245,10 @@
                             <th>국&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가</th>
                             
                             <td class="taxTD">
-                                <!-- 수정불가로 변경할 것 -->
-                                <input type="text" name="voCountryENG" class="voCountryENG">
-                                <input type="text" name="voCountryKOR" class="voCountryKOR">
+                                <input type="text" name="voCountryENG" class="voCountryENG" maxlength="20">
+                                <input type="text" name="voCountryKOR" class="voCountryKOR" maxlength="20">
                                 
-                                <!-- js로 국가 목록 출력 & 위의 입력값에 대입 -->
-                                <input type="button" value="검색" onclick="">
+                                <input type="button" value="검색" onclick="openCountryPop('${contextPath}');">
                             </td>
                         </tr>
                         
@@ -276,15 +280,18 @@
                             <th>등 록 정 보</th>
                             
                             <td>
-                                <input type="text" name="voRegiInfoMan" class="voRegiInfoMan">
-                                <input type="text" name="voRegiInfoDate" class="voRegiInfoDate" disabled>
+                                <input type="text" name="voRegiInfoMan" class="voRegiInfoMan" maxlength="10">
+                                <input type="hidden" name="voRegiInfoDate" class="voRegiInfoDate">
+                                <!-- <p class="fixedVoRigiInfoDate">test</p> -->
+                                <span class="fixedVoRegiInfoDate"></span>
                             </td>
                             
                             <th>변 경 정 보</th>
                             
                             <td>
-                                <input type="text" name="voModiInfoMan" class="voModiInfoMan">
-                                <input type="text" name="voModiInfoDate" class="voModiInfoDate" disabled>
+                                <input type="text" name="voModiInfoMan" class="voModiInfoMan" maxlength="10">
+                                <input type="hidden" name="voModiInfoDate" class="voModiInfoDate">
+                                <span class="fixedVoModiInfoDate"></span>
                             </td>
                         </tr>
                     </table>
@@ -300,15 +307,15 @@
                         
                         <tr>
                             <td>
-                                <input type="text" name="voFactory" class="voFactory">
+                                <input type="text" name="voFactory" class="voFactory" maxlength="20">
                             </td>
                             
                             <td>
-                                <input type="text" name="voTradeBank" class="voTradeBank">
+                                <input type="text" name="voTradeBank" class="voTradeBank" maxlength="20">
                             </td>
                             
                             <td>
-                                <input type="text" name="voAccountNum" class="voAccountNum">
+                                <input type="text" name="voAccountNum" class="voAccountNum" maxlength="20">
                             </td>
                         </tr>
                     </table>
@@ -321,17 +328,17 @@
 			                    <th>한글명</th>
 			                </tr>
 			                
-			                <tr>
+			                <tr class="countryData" onclick="inputCountry(this);">
 			                    <td>KOR</td>
 			                    <td>대한민국</td>
 			                </tr>
 			                
-			                <tr>
+			                <tr class="countryData" onclick="inputCountry(this);">
 			                    <td>USA</td>
 			                    <td>미국</td>
 			                </tr>
 			                
-			                <tr>
+			                <tr class="countryData" onclick="inputCountry(this);">
 			                    <td>CHN</td>
 			                    <td>중국</td>
 			                </tr>
@@ -339,7 +346,7 @@
 			                <tr>
 			                	<td colspan="2">
 			                		<div>
-			                			<input type="button" class="closeButton" value="닫기" onclick="">
+			                			<input type="button" class="closeButton" value="닫기" onclick="closeCountryPop();">
 			                		</div>
 			                	</td>
 			                </tr>
@@ -350,6 +357,10 @@
         </div>
         
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        
         <script src="${contextPath}/js/accountManager/accountManagerView.js?ver=${accountManagerView_js_ver}" type="text/javascript"></script>
+        
+        <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script src="${contextPath}/js/accountManager/postApi.js?ver=${postApi_js_ver}" type="text/javascript"></script>
     </body>
 </html>

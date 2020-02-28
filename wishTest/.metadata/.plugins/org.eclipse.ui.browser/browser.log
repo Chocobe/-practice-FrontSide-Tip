@@ -3,3 +3,10 @@
 2월 27, 2020 09:11:34.19 [11324:15960:0227/091134.195:ERROR:data_pack.cc(117)] Could not open pak file for writing: 요청한 작업은, 사용자가 매핑한 구역이 열려 있는 상태인 파일에서 수행할 수 없습니다. (0x4C8)
 2월 27, 2020 11:53:59.08 [11324:14704:0227/115359.081:ERROR:socket_stream.cc(218)] Closing stream with result -2
 2월 27, 2020 16:39:08.12 [11324:13524:0227/163908.126:ERROR:CONSOLE(17)] "SyntaxError: Unexpected token @ in JSON at position 0", source: devtools://devtools/bundled/sdk/SourceMap.js (17)
+
+2월 28, 2020 09:15:34.25 NEW SESSION
+2월 28, 2020 09:15:34.26 [11328:4932:0228/091534.256:ERROR:data_pack.cc(120)] Could not open pak file for writing: 요청한 작업은, 사용자가 매핑한 구역이 열려 있는 상태인 파일에서 수행할 수 없습니다. (0x4C8)
+2월 28, 2020 09:19:45.87 [4364:2304:0228/091945.877:ERROR:data_pack.cc(120)] Could not open pak file for writing: 요청한 작업은, 사용자가 매핑한 구역이 열려 있는 상태인 파일에서 수행할 수 없습니다. (0x4C8)
+2월 28, 2020 12:02:16.23 [4364:1280:0228/120216.231:ERROR:socket_stream.cc(218)] Closing stream with result -2
+2월 28, 2020 12:55:59.45 [4364:7356:0228/125559.459:ERROR:gcm_channel_status_request.cc(145)] GCM channel request failed.
+2월 28, 2020 14:35:18.38 [4364:1280:0228/143518.381:ERROR:socket_stream.cc(218)] Closing stream with result -2

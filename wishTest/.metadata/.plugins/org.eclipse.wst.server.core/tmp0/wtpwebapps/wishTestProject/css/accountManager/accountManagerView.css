@@ -2,7 +2,7 @@
 
 /* .wrap */
     .wrap {
-        width: 1080px;
+        width: 1040px;
         
         display: flex;
         flex-flow: row wrap;
@@ -73,6 +73,19 @@
         justify-content: space-around;
     }
     
+    .insertContainer .insertForm tr .fixedVoBusiNum {
+    	display: none;
+    	
+    	margin: 0;
+    	padding-right: 48px;
+    	text-align: center;
+    }
+    
+    .insertContainer .insertForm tr .fixedVoRegiInfoDate,
+    .insertContainer .insertForm tr .fixedVoModiInfoDate {
+    	font-size: 0.75em;
+    }
+    
     .insertContainer .insertForm .voCountryENG,
     .insertContainer .insertForm .voCountryKOR {
         width: 120px;
@@ -95,40 +108,48 @@
     .voModiInfoMan {
     	width: 80px;
     }
-    
-/*  
-국가선택 팝업
-    .wrap .countryPop {
-    	border: 1px solid #000;
+
+
+/* 국가선택 팝업 */    
+	/* .countryPop */
+    .countryPop {
+    	padding: 10px;
     	
-    	display: absolute;
-    	top: 0;
-    	left: 0;
+    	position: absolute;
+    	top: 285px;
+    	right: 15px;
+    	
+    	border: 1px solid #999;
+    	background: #fff;
+    	
+    	display: none;
     }
     
+    .countryPop table {
+    	border-collapse: collapse;
+    }
     
-    .test {
-    	border: 1px solid #000;
-    	display: absolute;
-    	top: 0;
-    	left: 0;
-    } */
+    .countryPop table tr:hover td {
+    	background: #ccc;
+    }
     
-    .countryPop {
-    	position: absolute;
-    	top: 0;
-    	left: 0;
+    .countryPop table tr:last-child:hover td {
+    	background: #fff;
+    }
+    
+    .countryPop table tr th {
+    	border-bottom: 1px solid #000;
     	
-    	background: peru;
+    	width: 100px;
     }
     
     .countryPop table tr td {
     	text-align: right;
+    	text-align: center;
     }
     
     .countryPop table tr td div {
     	display: inline-block;
     }
-    
     
     

@@ -95,3 +95,28 @@
         // POJO에서 Timestamp값을 가져오면, 해당 값의 String타입을 따로 인스턴스 변수에 저장
         $(".voContractPeriod_S").val(parsedJSON[idx].customVO.voContractPeriod_S_String);
     ```
+
+
+---
+
+
+## 4. 문자열 크기 구하기 (정규식 사용)
+
+* UTF-8에서 영문은 **1byte**, 한글은 **3byte**
+
+* js에서 문자열의 길이를 구하는 정규식
+
+    ```javascript
+        const length = "대상_문자열".replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length
+    ```
+
+
+## 5. 현재 탭 닫기
+
+* 크롬, 파이어폭스 에서는 **onclick**에 함수로 사용할 경우, 탭 닫기가 동작하지 않는다.
+
+* html또는 jsp페이지에서 **onclick**에 다음과 같이 작성한다.
+
+    ```html
+        <태그 onclick="javascript:self.close();">
+    ```

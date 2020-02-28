@@ -114,6 +114,21 @@
     	left: 0;
     } */
     
+    .countryPop {
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    	
+    	background: peru;
+    }
+    
+    .countryPop table tr td {
+    	text-align: right;
+    }
+    
+    .countryPop table tr td div {
+    	display: inline-block;
+    }
     
     
     

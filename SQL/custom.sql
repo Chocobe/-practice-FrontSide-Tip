@@ -52,7 +52,8 @@ WHERE custom.BUSI_NUM = ACCOUNT.busi_num;
 SELECT * FROM custom JOIN account
 ON custom.BUSI_NUM = account.BUSI_NUM
 WHERE custom.BUSI_NUM LIKE '%1%' 
-  AND custom.BUSI_NUM LIKE '%2%';
+  OR custom.BUSI_NUM LIKE '%2%'
+  OR custom.BUSI_NUM LIKE '%-%';
 
 
 

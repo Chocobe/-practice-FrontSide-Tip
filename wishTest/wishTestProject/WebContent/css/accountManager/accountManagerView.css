@@ -95,25 +95,25 @@
     .voModiInfoMan {
     	width: 80px;
     }
-    
-/*  
-국가선택 팝업
-    .wrap .countryPop {
-    	border: 1px solid #000;
-    	
-    	display: absolute;
+
+
+/* 국가선택 팝업 */    
+	/* .countryPop */
+    .countryPop {
+    	position: absolute;
     	top: 0;
     	left: 0;
+    	
+    	background: peru;
     }
     
+    .countryPop table tr td {
+    	text-align: right;
+    }
     
-    .test {
-    	border: 1px solid #000;
-    	display: absolute;
-    	top: 0;
-    	left: 0;
-    } */
-    
+    .countryPop table tr td div {
+    	display: inline-block;
+    }
     
     
     

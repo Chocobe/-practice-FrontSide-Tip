@@ -238,7 +238,7 @@
                             
                             <th>국&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가</th>
                             
-                            <td>
+                            <td class="taxTD">
                                 <!-- 수정불가로 변경할 것 -->
                                 <input type="text" name="voCountryENG" class="voCountryENG">
                                 <input type="text" name="voCountryKOR" class="voCountryKOR">
@@ -312,35 +312,42 @@
                             </td>
                         </tr>
                     </table>
+                    
+                    <!-- 국가선택 팝업 -->
+					<div class="countryPop">
+			            <table>
+			                <tr>
+			                    <th>영문명</th>
+			                    <th>한글명</th>
+			                </tr>
+			                
+			                <tr>
+			                    <td>KOR</td>
+			                    <td>대한민국</td>
+			                </tr>
+			                
+			                <tr>
+			                    <td>USA</td>
+			                    <td>미국</td>
+			                </tr>
+			                
+			                <tr>
+			                    <td>CHN</td>
+			                    <td>중국</td>
+			                </tr>
+			                
+			                <tr>
+			                	<td colspan="2">
+			                		<div>
+			                			<input type="button" class="closeButton" value="닫기" onclick="">
+			                		</div>
+			                	</td>
+			                </tr>
+			            </table>
+			        </div>
                 </form>
             </div>
-            
-            <!-- <div class="countryPop">
-	            <table>
-	                <tr>
-	                    <th>영문명</th>
-	                    <th>한글명</th>
-	                </tr>
-	                
-	                <tr>
-	                    <td>KOR</td>
-	                    <td>대한민국</td>
-	                </tr>
-	                
-	                <tr>
-	                    <td>USA</td>
-	                    <td>미국</td>
-	                </tr>
-	                
-	                <tr>
-	                    <td>CHN</td>
-	                    <td>중국</td>
-	                </tr>
-	            </table>
-	            
-	            <input type="button" class="countryPopCloseButton" value="닫기" onclick="">
-	        </div>
-        </div> -->
+        </div>
         
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="${contextPath}/js/accountManager/accountManagerView.js?ver=${accountManagerView_js_ver}" type="text/javascript"></script>
